@@ -15,7 +15,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MockBase — AI Mock Server",
+  title: "MockBack — AI Mock Server",
   description:
     "Describe an API in plain English. Get a live, shareable mock server in under a minute.",
 };

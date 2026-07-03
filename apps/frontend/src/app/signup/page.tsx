@@ -39,7 +39,7 @@ export default function SignupPage() {
 
       <nav className="punk-nav">
         <Link href="/" className="punk-nav-logo">
-          MockBase
+          MockBack
         </Link>
       </nav>
 
@@ -89,7 +89,7 @@ export default function SignupPage() {
               <input
                 type="email"
                 className="punk-input"
-                placeholder="rebel@mockbase.dev"
+                placeholder="rebel@mockback.dev"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

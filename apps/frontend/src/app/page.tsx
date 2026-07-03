@@ -14,7 +14,7 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="punk-nav">
         <Link href="/" className="punk-nav-logo">
-          MockBase
+          MockBack
         </Link>
         <div className="punk-nav-links">
           <Link href="/login" className="punk-nav-link">
@@ -75,7 +75,7 @@ export default function LandingPage() {
           <span className="text-yellow" style={{ fontWeight: 700 }}>
             plain english
           </span>
-          . MockBase generates a shareable API with stateful data, fault injection, and auth simulation.
+          . MockBack generates a shareable API with stateful data, fault injection, and auth simulation.
           No backend required.
         </p>
 
@@ -148,7 +148,7 @@ GET  /restaurants     200  243ms  [{ "name": "The Golden Fork", ... }]`}
         <div className="halftone-bg" style={{ opacity: 0.04 }} />
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div className="sticker" style={{ marginBottom: 32 }}>
-            Why MockBase
+            Why MockBack
           </div>
 
           <div
@@ -297,7 +297,7 @@ GET  /restaurants     200  243ms  [{ "name": "The Golden Fork", ... }]`}
           fontFamily: "var(--font-body)",
         }}
       >
-        <span className="text-pink">MockBase</span> — Built with NestJS, FastAPI, Redis & pure chaos.
+        <span className="text-pink">MockBack</span> — Built with NestJS, FastAPI, Redis & pure chaos.
       </footer>
     </div>
   );

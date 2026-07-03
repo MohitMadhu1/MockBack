@@ -119,7 +119,7 @@ export default function MockDetailPage({ params }: { params: Promise<{ id: strin
 
       <nav className="punk-nav">
         <Link href="/" className="punk-nav-logo">
-          MockBase
+          MockBack
         </Link>
         <Link href="/dashboard" className="punk-nav-link">
           ← Dashboard

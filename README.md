@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="MockBase" width="100%" />
+  <img src="docs/banner.png" alt="MockBack" width="100%" />
 </p>
 
 <p align="center">

@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from chain import chain
 from schema import RouteConfig
 
-app = FastAPI(title="MockBase LLM Service")
+app = FastAPI(title="MockBack LLM Service")
 
 app.add_middleware(
     CORSMiddleware,

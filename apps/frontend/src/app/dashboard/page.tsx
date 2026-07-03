@@ -67,7 +67,7 @@ export default function DashboardPage() {
       {/* Nav */}
       <nav className="punk-nav">
         <Link href="/" className="punk-nav-logo">
-          MockBase
+          MockBack
         </Link>
         <div className="punk-nav-links">
           <Link href="/mocks/new" className="punk-btn" style={{ fontSize: "0.75rem", padding: "8px 18px" }}>
