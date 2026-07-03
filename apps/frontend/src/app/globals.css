@@ -1,0 +1,725 @@
+/* ═══════════════════════════════════════════════════════════════
+   MOCKBASE — SPIDER-PUNK DESIGN SYSTEM
+   Inspired by Spider-Punk from Across the Spider-Verse.
+   Xerox zine textures, halftone dots, ink splatters,
+   torn paper, glitch animations, punk-rock energy.
+   ═══════════════════════════════════════════════════════════════ */
+
+@import "tailwindcss";
+
+/* ── PUNK COLOR PALETTE ── */
+:root {
+  --punk-black: #0a0a0a;
+  --punk-dark: #141414;
+  --punk-pink: #ff1493;
+  --punk-yellow: #ffed00;
+  --punk-cyan: #00e5ff;
+  --punk-red: #ff3131;
+  --punk-green: #39ff14;
+  --punk-white: #f5f0e8; /* Aged paper white */
+  --punk-grey: #2a2a2a;
+  --punk-orange: #ff6b00;
+
+  --font-display: var(--font-marker), "Impact", sans-serif;
+  --font-body: var(--font-mono), "Courier New", monospace;
+}
+
+/* ── RESET & BASE ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--punk-black);
+  color: var(--punk-white);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── FILM GRAIN OVERLAY ──
+   A full-screen noise texture that never goes away.
+   Gives the whole UI a photocopied / xerox feel. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+/* ── HALFTONE DOT PATTERN ──
+   Used as a background accent on sections. */
+.halftone-bg {
+  background-image: radial-gradient(circle, var(--punk-pink) 1px, transparent 1px);
+  background-size: 12px 12px;
+  opacity: 0.08;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── TYPOGRAPHY ── */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Screen-printing "registration offset" effect using text-shadow */
+.punk-heading {
+  position: relative;
+  display: inline-block;
+  color: var(--punk-white);
+  text-shadow: 3px 2px 0 rgba(0, 229, 255, 0.7), -2px -2px 0 rgba(255, 20, 147, 0.5);
+}
+
+/* ── GLITCH TEXT ANIMATION ── */
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+  20% {
+    transform: translate(-2px, 1px);
+    text-shadow: 2px 0 var(--punk-cyan), -2px 0 var(--punk-pink);
+  }
+  40% {
+    transform: translate(2px, -1px);
+    text-shadow: -2px 0 var(--punk-yellow), 2px 0 var(--punk-red);
+  }
+  60% {
+    transform: translate(-1px, 2px);
+    text-shadow: 1px 0 var(--punk-green), -1px 0 var(--punk-orange);
+  }
+  80% {
+    transform: translate(1px, -2px);
+    text-shadow: -1px 0 var(--punk-pink), 1px 0 var(--punk-cyan);
+  }
+}
+.glitch-text {
+  animation: glitch 3s infinite;
+}
+
+/* ── JITTER / SHAKE ANIMATION ──
+   Mimics the irregular frame rates of Spider-Punk */
+@keyframes jitter {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-1px, 1px) rotate(-0.5deg);
+  }
+  50% {
+    transform: translate(1px, -1px) rotate(0.5deg);
+  }
+  75% {
+    transform: translate(-1px, -1px) rotate(-0.3deg);
+  }
+}
+.jitter {
+  animation: jitter 0.15s infinite;
+}
+.jitter-slow {
+  animation: jitter 0.5s infinite;
+}
+
+/* ── PUNK BUTTON ──
+   Looks like a hand-stamped sticker / concert patch.
+   Thick borders, slight rotation, halftone fill. */
+.punk-btn {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border: 3px solid var(--punk-white);
+  background: var(--punk-pink);
+  color: var(--punk-black);
+  cursor: pointer;
+  position: relative;
+  transform: rotate(-1deg);
+  transition: all 0.15s ease;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  display: inline-block;
+}
+.punk-btn::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px dashed var(--punk-yellow);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.punk-btn:hover {
+  transform: rotate(1deg) scale(1.05);
+  background: var(--punk-yellow);
+  color: var(--punk-black);
+  box-shadow: 4px 4px 0 var(--punk-cyan), -2px -2px 0 var(--punk-pink);
+}
+.punk-btn:hover::before {
+  opacity: 1;
+}
+.punk-btn:active {
+  transform: rotate(0deg) scale(0.97);
+}
+.punk-btn-secondary {
+  background: transparent;
+  color: var(--punk-white);
+  border: 3px solid var(--punk-pink);
+}
+.punk-btn-secondary:hover {
+  background: var(--punk-pink);
+  color: var(--punk-black);
+}
+
+/* ── TORN PAPER CARD ──
+   Cards that look like ripped-out zine pages. */
+.punk-card {
+  background: var(--punk-dark);
+  border: 2px solid var(--punk-grey);
+  padding: 24px;
+  position: relative;
+  transform: rotate(-0.3deg);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+/* Rough torn edge simulation via clip-path */
+.punk-card::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--punk-pink);
+  clip-path: polygon(
+    0% 50%,
+    2% 0%,
+    5% 80%,
+    8% 20%,
+    12% 60%,
+    15% 10%,
+    18% 70%,
+    22% 30%,
+    25% 90%,
+    28% 0%,
+    32% 60%,
+    35% 20%,
+    38% 80%,
+    42% 40%,
+    45% 100%,
+    48% 10%,
+    52% 70%,
+    55% 30%,
+    58% 90%,
+    62% 0%,
+    65% 60%,
+    68% 20%,
+    72% 80%,
+    75% 40%,
+    78% 100%,
+    82% 10%,
+    85% 70%,
+    88% 30%,
+    92% 90%,
+    95% 50%,
+    98% 0%,
+    100% 50%
+  );
+}
+.punk-card:hover {
+  transform: rotate(0.3deg) translateY(-2px);
+  box-shadow: 4px 4px 0 var(--punk-pink), -2px -2px 0 var(--punk-cyan);
+}
+
+/* ── PUNK INPUT FIELD ──
+   Looks like typed-on-a-typewriter text. */
+.punk-input {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--punk-black);
+  border: 2px solid var(--punk-grey);
+  color: var(--punk-white);
+  padding: 14px 18px;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.punk-input:focus {
+  border-color: var(--punk-pink);
+  box-shadow: 0 0 0 2px var(--punk-pink), inset 0 0 20px rgba(255, 20, 147, 0.05);
+}
+.punk-input::placeholder {
+  color: #555;
+  font-style: italic;
+}
+
+.punk-textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--punk-black);
+  border: 2px solid var(--punk-grey);
+  color: var(--punk-white);
+  padding: 18px;
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  line-height: 1.7;
+}
+.punk-textarea:focus {
+  border-color: var(--punk-cyan);
+  box-shadow: 0 0 0 2px var(--punk-cyan), inset 0 0 30px rgba(0, 229, 255, 0.03);
+}
+
+/* ── BADGE / TAG ──
+   Status badges like punched-out stickers. */
+.punk-badge {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  display: inline-block;
+  transform: rotate(-2deg);
+  letter-spacing: 0.1em;
+}
+.punk-badge-success {
+  background: var(--punk-green);
+  color: var(--punk-black);
+  border: 2px solid var(--punk-black);
+}
+.punk-badge-error {
+  background: var(--punk-red);
+  color: var(--punk-white);
+  border: 2px solid var(--punk-black);
+}
+.punk-badge-warn {
+  background: var(--punk-yellow);
+  color: var(--punk-black);
+  border: 2px solid var(--punk-black);
+}
+.punk-badge-info {
+  background: var(--punk-cyan);
+  color: var(--punk-black);
+  border: 2px solid var(--punk-black);
+}
+
+/* ── CROSSHATCH PATTERN FILL ── */
+.crosshatch {
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 4px,
+      rgba(255, 20, 147, 0.07) 4px,
+      rgba(255, 20, 147, 0.07) 5px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 4px,
+      rgba(0, 229, 255, 0.05) 4px,
+      rgba(0, 229, 255, 0.05) 5px
+    );
+}
+
+/* ── INK SPLATTER DECORATIONS ── */
+.ink-splat {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.15;
+}
+.ink-splat-pink {
+  background: var(--punk-pink);
+  box-shadow: 10px 5px 0 var(--punk-pink), -5px 10px 0 var(--punk-pink),
+    15px -5px 0 var(--punk-pink);
+}
+.ink-splat-cyan {
+  background: var(--punk-cyan);
+  box-shadow: 10px 5px 0 var(--punk-cyan), -5px 10px 0 var(--punk-cyan);
+}
+
+/* ── SCANLINE OVERLAY ── */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  z-index: 2;
+}
+
+/* ── TAPE STRIPS ──
+   Decorative "scotch tape" that holds cards together. */
+.tape-strip {
+  position: absolute;
+  width: 100px;
+  height: 28px;
+  background: rgba(255, 237, 0, 0.25);
+  border: 1px solid rgba(255, 237, 0, 0.15);
+  backdrop-filter: blur(2px);
+  z-index: 5;
+}
+.tape-strip-left {
+  top: -10px;
+  left: 20px;
+  transform: rotate(-8deg);
+}
+.tape-strip-right {
+  top: -10px;
+  right: 20px;
+  transform: rotate(5deg);
+}
+
+/* ── PUNK NAVIGATION BAR ── */
+.punk-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 3px solid var(--punk-grey);
+  background: var(--punk-black);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.punk-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--punk-pink);
+  text-decoration: none;
+  position: relative;
+}
+.punk-nav-logo::after {
+  content: "™";
+  font-size: 0.5rem;
+  position: absolute;
+  top: 2px;
+  right: -14px;
+  color: var(--punk-yellow);
+}
+.punk-nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.punk-nav-link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--punk-white);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  padding: 4px 0;
+}
+.punk-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--punk-pink);
+  transition: width 0.2s;
+}
+.punk-nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── STICKER LABEL ──
+   Small labels that look like physical stickers. */
+.sticker {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: var(--punk-yellow);
+  color: var(--punk-black);
+  display: inline-block;
+  transform: rotate(-3deg);
+  border: 2px solid var(--punk-black);
+  box-shadow: 2px 2px 0 var(--punk-black);
+  letter-spacing: 0.05em;
+}
+
+/* ── TABLE (for route configs and logs) ── */
+.punk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+.punk-table th {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 3px solid var(--punk-pink);
+  color: var(--punk-pink);
+}
+.punk-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--punk-grey);
+  transition: background 0.15s;
+}
+.punk-table tr:hover td {
+  background: rgba(255, 20, 147, 0.05);
+}
+
+/* Method badges inside tables */
+.method-badge {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  letter-spacing: 0.1em;
+  display: inline-block;
+}
+.method-get {
+  background: var(--punk-green);
+  color: var(--punk-black);
+}
+.method-post {
+  background: var(--punk-yellow);
+  color: var(--punk-black);
+}
+.method-put {
+  background: var(--punk-cyan);
+  color: var(--punk-black);
+}
+.method-delete {
+  background: var(--punk-red);
+  color: var(--punk-white);
+}
+
+/* ── SLIDER (punk range input) ── */
+.punk-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--punk-grey);
+  outline: none;
+  border: 1px solid var(--punk-white);
+}
+.punk-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--punk-pink);
+  border: 2px solid var(--punk-white);
+  cursor: pointer;
+  transform: rotate(45deg);
+}
+.punk-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--punk-pink);
+  border: 2px solid var(--punk-white);
+  cursor: pointer;
+  transform: rotate(45deg);
+}
+
+/* ── TOGGLE SWITCH (punk) ── */
+.punk-toggle {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: var(--punk-grey);
+  border: 2px solid var(--punk-white);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.punk-toggle.active {
+  background: var(--punk-pink);
+}
+.punk-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--punk-white);
+  transition: transform 0.2s;
+}
+.punk-toggle.active::after {
+  transform: translateX(24px);
+}
+
+/* ── COPY BUTTON ── */
+.copy-btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  background: var(--punk-grey);
+  color: var(--punk-white);
+  border: 1px solid var(--punk-white);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.15s;
+}
+.copy-btn:hover {
+  background: var(--punk-cyan);
+  color: var(--punk-black);
+}
+
+/* ── LOADING SPINNER (punk style) ── */
+@keyframes punk-spin {
+  0% {
+    transform: rotate(0deg);
+    border-color: var(--punk-pink) transparent var(--punk-cyan) transparent;
+  }
+  50% {
+    border-color: var(--punk-yellow) transparent var(--punk-green) transparent;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-color: var(--punk-pink) transparent var(--punk-cyan) transparent;
+  }
+}
+.punk-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid transparent;
+  border-top: 4px solid var(--punk-pink);
+  border-bottom: 4px solid var(--punk-cyan);
+  animation: punk-spin 0.8s linear infinite;
+}
+
+/* ── FLICKER ANIMATION ──
+   Simulate a bad CRT monitor flicker. */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.8;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.9;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+.flicker {
+  animation: flicker 4s infinite;
+}
+
+/* ── STAMP BORDER ── */
+.stamp-border {
+  border: 3px solid var(--punk-white);
+  box-shadow: inset 0 0 0 3px var(--punk-black), inset 0 0 0 5px var(--punk-white);
+}
+
+/* ── UTILITY ── */
+.text-pink {
+  color: var(--punk-pink);
+}
+.text-cyan {
+  color: var(--punk-cyan);
+}
+.text-yellow {
+  color: var(--punk-yellow);
+}
+.text-green {
+  color: var(--punk-green);
+}
+.text-red {
+  color: var(--punk-red);
+}
+.text-orange {
+  color: var(--punk-orange);
+}
+.bg-dark {
+  background: var(--punk-dark);
+}
+.bg-black {
+  background: var(--punk-black);
+}
+
+/* Torn bottom edge for section dividers */
+.torn-edge-bottom {
+  position: relative;
+}
+.torn-edge-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--punk-black);
+  clip-path: polygon(
+    0% 50%,
+    3% 0%,
+    6% 70%,
+    9% 20%,
+    12% 80%,
+    15% 10%,
+    18% 60%,
+    21% 30%,
+    24% 90%,
+    27% 0%,
+    30% 50%,
+    33% 20%,
+    36% 80%,
+    39% 40%,
+    42% 100%,
+    45% 10%,
+    48% 70%,
+    51% 30%,
+    54% 90%,
+    57% 0%,
+    60% 60%,
+    63% 20%,
+    66% 80%,
+    69% 40%,
+    72% 100%,
+    75% 10%,
+    78% 70%,
+    81% 30%,
+    84% 90%,
+    87% 50%,
+    90% 0%,
+    93% 60%,
+    96% 20%,
+    100% 50%
+  );
+}
