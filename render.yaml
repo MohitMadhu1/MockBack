@@ -1,22 +1,14 @@
-databases:
-  - name: mockbase-db
-    databaseName: mockbase
-    user: mockbase
-
 services:
   - type: web
     name: mockbase-api
-    env: node
-    rootDir: apps/api
-    buildCommand: npm install && npm run build
-    startCommand: npm run start:prod
+    env: docker
+    dockerfilePath: apps/api/Dockerfile
+    dockerContext: apps/api
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: mockbase-db
-          property: connectionString
+        sync: false # Paste your Neon.tech URL here via Render Dashboard
       - key: REDIS_URL
-        sync: false # You will need to provide this manually (e.g., from Upstash)
+        sync: false # Paste your Upstash URL here via Render Dashboard
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRES_IN
@@ -28,20 +20,18 @@ services:
 
   - type: web
     name: mockbase-frontend
-    env: node
-    rootDir: apps/frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    env: docker
+    dockerfilePath: apps/frontend/Dockerfile
+    dockerContext: apps/frontend
     envVars:
       - key: NEXT_PUBLIC_API_URL
         value: https://mockbase-api.onrender.com
 
   - type: web
     name: mockbase-llm
-    env: python
-    rootDir: apps/llm-service
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    env: docker
+    dockerfilePath: apps/llm-service/Dockerfile
+    dockerContext: apps/llm-service
     envVars:
       - key: GROQ_API_KEY
-        sync: false # You will need to provide this manually in the Render dashboard
+        sync: false # Paste your Groq API Key here via Render Dashboard

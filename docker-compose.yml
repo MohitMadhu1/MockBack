@@ -1,34 +1,41 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15-alpine
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: mockbase
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mockbase
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U mockbase"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      # Override the LLM Service URL to use the internal Docker network
+      - LLM_SERVICE_URL=http://llm-service:8000
+      - FRONTEND_URL=http://localhost:3001
+    depends_on:
+      - llm-service
 
-  redis:
-    image: redis:7-alpine
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+      args:
+        # Pass the API URL at build time for Next.js to bake in
+        - NEXT_PUBLIC_API_URL=http://localhost:3000
     ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      - "3001:3001"
+    environment:
+      # This ensures Next.js runs on 3001 inside the container
+      - PORT=3001
+    depends_on:
+      - api
 
-volumes:
-  postgres_data:
-  redis_data:
+  llm-service:
+    build:
+      context: ./apps/llm-service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
