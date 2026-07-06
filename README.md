@@ -40,25 +40,25 @@ Describe an API in plain English → get a live, stateful mock server with auth,
                         │
                         ▼
 ┌─────────────────────────────────────────────────────────┐
-│                  CORE API (NestJS)                       │
-│                  Render · Docker                         │
+│                  CORE API (NestJS)                      │
+│                  Render · Docker                        │
 │                                                         │
 │  /auth/*          → JWT signup/login                    │
-│  /mocks/*         → CRUD mock configs                  │
-│  /mock/:id/*      → Dynamic mock traffic handler       │
-│  /generate-schema → Proxy to LLM service               │
+│  /mocks/*         → CRUD mock configs                   │
+│  /mock/:id/*      → Dynamic mock traffic handler        │
+│  /generate-schema → Proxy to LLM service                │
 │                                                         │
-│  ┌─────────────┐  ┌──────────────┐  ┌───────────────┐  │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────┐   │
 │  │ Fault Inject │  │ Schema Faker │  │ SSE Log Stream│  │
 │  │ latency/err  │  │ faker.js gen │  │ real-time logs│  │
-│  └─────────────┘  └──────────────┘  └───────────────┘  │
+│  └─────────────┘  └──────────────┘  └───────────────┘   │
 └──────┬──────────────────┬───────────────────┬───────────┘
        │                  │                   │
        ▼                  ▼                   ▼
 ┌──────────────┐  ┌──────────────┐  ┌─────────────────┐
 │  PostgreSQL  │  │    Redis     │  │  LLM Service    │
-│  Neon        │  │  Upstash     │  │  FastAPI/Python  │
-│              │  │              │  │  Render · Docker │
+│  Neon        │  │  Upstash     │  │  FastAPI/Python │
+│              │  │              │  │  Render · Docker│
 │  users       │  │  mock state  │  │                 │
 │  mock configs│  │  rate limits │  │  LangChain +    │
 │  request logs│  │  SSE pub/sub │  │  Groq (LLaMA-3) │
